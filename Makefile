@@ -24,7 +24,17 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 # targets
 # -----------------------------------------------------------------------------
 
-.PHONY: help step_1 step_2 step_3 step_4 step_5 step_6 step_7 step_8
+.PHONY: \
+	help \
+	pandoc_latex_template \
+	step_1 \
+	step_2 \
+	step_3 \
+	step_4 \
+	step_5 \
+	step_6 \
+	step_7 \
+	step_8
 
 ## help: Show this help.
 help: Makefile
@@ -33,6 +43,10 @@ help: Makefile
 	@sed -n -e '/^## \S/ s/^## //p' -e 's/^## \s\+/: /p' $< | \
 		awk -F ": " '{printf "\033[33m%-20s\033[0m%s\n", $$1, $$2};'
 	@echo ""
+
+## pandoc_latex_template: Generate the pandoc latex template
+pandoc_latex_template:
+	${PANDOC} -D latex > ${OUTPUT_DIR}/pandoc_latex_template.pandoc
 
 ## step_1: Most basic pandoc command.
 step_1:
