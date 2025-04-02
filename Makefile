@@ -82,3 +82,15 @@ step_6:
 		${STYLE_DIR}/style_step_5.yml \
 		${DOCUMENT_SRC_FILE}
 
+## step_7: Add header and footer
+step_7:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
+		--filter pandoc-crossref \
+		--citeproc \
+		-o ${DOCUMENT_OUT_FILE} \
+		${STYLE_DIR}/style_step_4.yml \
+		${STYLE_DIR}/style_step_5.yml \
+		${STYLE_DIR}/style_step_7.yml \
+		${DOCUMENT_SRC_FILE}
+
