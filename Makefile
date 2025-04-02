@@ -22,7 +22,7 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 # targets
 # -----------------------------------------------------------------------------
 
-.PHONY: help step_1 step_2
+.PHONY: help step_1 step_2 step_3
 
 ## help: Show this help.
 help: Makefile
@@ -42,6 +42,14 @@ step_1:
 step_2:
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
+		-o ${DOCUMENT_OUT_FILE} \
+		${DOCUMENT_SRC_FILE}
+
+## step_3: Number sections
+step_3:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
+		--number-sections \
 		-o ${DOCUMENT_OUT_FILE} \
 		${DOCUMENT_SRC_FILE}
 
