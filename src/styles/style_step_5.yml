@@ -1,0 +1,8 @@
+---
+bibliography: src/bib/bibliography.bib
+csl: src/styles/ieee-with-url.csl
+reference-section-title: References
+link-citations: true
+link-bibliography: true
+---
+

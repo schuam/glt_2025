@@ -1,0 +1,14 @@
+---
+changelog:
+  entries:
+  - date: 2024-09-17
+    user: Andreas
+    changes:
+    - Set up the document.
+  - date: 2024-09-18
+    user: Andreas
+    changes:
+    - Modified the template.
+    - Added changelog data.
+---
+

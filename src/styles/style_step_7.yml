@@ -1,0 +1,24 @@
+---
+classoption:
+  - titlepage
+  - twoside
+geometry:
+  - top=2.5cm
+  - bottom=2.5cm
+  - inner=3.5cm
+  - outer=2.5cm
+  - heightrounded
+header-includes: |
+  \usepackage{lastpage}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{1pt}
+  \renewcommand{\footrulewidth}{1pt}
+  \fancyhead[RE,LO]{Inside}
+  \fancyhead[CE,CO]{Head}
+  \fancyhead[LE,RO]{Outside}
+  \fancyfoot[RE,LO]{Inside}
+  \fancyfoot[CE,CO]{Foot}
+  \fancyfoot[LE,RO]{\thepage/\pageref*{LastPage}}
+---
+
