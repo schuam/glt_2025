@@ -5,6 +5,7 @@
 DOCUMENT_SRC_DIR = src/md
 OUTPUT_DIR = out
 STYLE_DIR = src/styles
+ASSETS_DIR = assets
 
 DOCUMENT_NAME = document
 
@@ -21,7 +22,7 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 # targets
 # -----------------------------------------------------------------------------
 
-.PHONY: help step_1
+.PHONY: help step_1 step_2
 
 ## help: Show this help.
 help: Makefile
@@ -34,6 +35,13 @@ help: Makefile
 ## step_1: Most basic pandoc command.
 step_1:
 	${PANDOC} \
+		-o ${DOCUMENT_OUT_FILE} \
+		${DOCUMENT_SRC_FILE}
+
+## step_2: Add images
+step_2:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
 		-o ${DOCUMENT_OUT_FILE} \
 		${DOCUMENT_SRC_FILE}
 
