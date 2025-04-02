@@ -1,0 +1,18 @@
+---
+classoption:
+  - titlepage
+papersize: a4
+geometry:
+  - top=3.5cm
+  - bottom=3.5cm
+  - left=3.5cm
+  - right=3.5cm
+  - heightrounded
+numbersections: true
+toc: true
+lof: true
+lot: true
+colorlinks: true
+urlstyle: tt
+---
+
