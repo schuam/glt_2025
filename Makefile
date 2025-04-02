@@ -10,9 +10,11 @@ ASSETS_DIR = assets
 DOCUMENT_NAME = document
 
 DOCUMENT_SRC_FILE_NAME = ${DOCUMENT_NAME}.md
+NEW_PAGE_SRC_FILE_NAME = pagebreak.md
 DOCUMENT_OUT_FILE_NAME = ${DOCUMENT_NAME}.pdf
 
 DOCUMENT_SRC_FILE = ${DOCUMENT_SRC_DIR}/${DOCUMENT_SRC_FILE_NAME}
+NEW_PAGE_SRC_FILE = ${DOCUMENT_SRC_DIR}/${NEW_PAGE_SRC_FILE_NAME}
 DOCUMENT_OUT_FILE = ${OUTPUT_DIR}/${DOCUMENT_OUT_FILE_NAME}
 
 PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
@@ -22,7 +24,7 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 # targets
 # -----------------------------------------------------------------------------
 
-.PHONY: help step_1 step_2 step_3 step_4 step_5 step_6
+.PHONY: help step_1 step_2 step_3 step_4 step_5 step_6 step_7 step_8
 
 ## help: Show this help.
 help: Makefile
@@ -92,5 +94,18 @@ step_7:
 		${STYLE_DIR}/style_step_4.yml \
 		${STYLE_DIR}/style_step_5.yml \
 		${STYLE_DIR}/style_step_7.yml \
+		${DOCUMENT_SRC_FILE}
+
+## step_8: Add page break before first section
+step_8:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
+		--filter pandoc-crossref \
+		--citeproc \
+		-o ${DOCUMENT_OUT_FILE} \
+		${STYLE_DIR}/style_step_4.yml \
+		${STYLE_DIR}/style_step_5.yml \
+		${STYLE_DIR}/style_step_7.yml \
+		${NEW_PAGE_SRC_FILE} \
 		${DOCUMENT_SRC_FILE}
 
