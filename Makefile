@@ -22,7 +22,7 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 # targets
 # -----------------------------------------------------------------------------
 
-.PHONY: help step_1 step_2 step_3 step_4 step_5
+.PHONY: help step_1 step_2 step_3 step_4 step_5 step_6
 
 ## help: Show this help.
 help: Makefile
@@ -65,6 +65,17 @@ step_4:
 step_5:
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
+		--citeproc \
+		-o ${DOCUMENT_OUT_FILE} \
+		${STYLE_DIR}/style_step_4.yml \
+		${STYLE_DIR}/style_step_5.yml \
+		${DOCUMENT_SRC_FILE}
+
+## step_6: Add pandoc-crossref filter
+step_6:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
+		--filter pandoc-crossref \
 		--citeproc \
 		-o ${DOCUMENT_OUT_FILE} \
 		${STYLE_DIR}/style_step_4.yml \
