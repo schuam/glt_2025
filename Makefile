@@ -3,19 +3,25 @@
 # -----------------------------------------------------------------------------
 
 DOCUMENT_SRC_DIR = src/md
+DATA_DIR = src/data
 OUTPUT_DIR = out
 STYLE_DIR = src/styles
 ASSETS_DIR = assets
+TEMPLATE_DIR = src/templates
 
 DOCUMENT_NAME = document
 
 DOCUMENT_SRC_FILE_NAME = ${DOCUMENT_NAME}.md
+CHANGELOG_SRC_FILE_NAME = changelog.yml
 NEW_PAGE_SRC_FILE_NAME = pagebreak.md
 DOCUMENT_OUT_FILE_NAME = ${DOCUMENT_NAME}.pdf
+TEMPLATE_FILE_NAME = template_step_9.pandoc
 
 DOCUMENT_SRC_FILE = ${DOCUMENT_SRC_DIR}/${DOCUMENT_SRC_FILE_NAME}
+CHANGELOG_SRC_FILE = ${DATA_DIR}/${CHANGELOG_SRC_FILE_NAME}
 NEW_PAGE_SRC_FILE = ${DOCUMENT_SRC_DIR}/${NEW_PAGE_SRC_FILE_NAME}
 DOCUMENT_OUT_FILE = ${OUTPUT_DIR}/${DOCUMENT_OUT_FILE_NAME}
+TEMPLATE_FILE = ${TEMPLATE_DIR}/${TEMPLATE_FILE_NAME}
 
 PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 
@@ -34,7 +40,8 @@ PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
 	step_5 \
 	step_6 \
 	step_7 \
-	step_8
+	step_8 \
+	step_9
 
 ## help: Show this help.
 help: Makefile
@@ -116,6 +123,21 @@ step_8:
 		--resource-path .:${ASSETS_DIR}/ \
 		--filter pandoc-crossref \
 		--citeproc \
+		-o ${DOCUMENT_OUT_FILE} \
+		${STYLE_DIR}/style_step_4.yml \
+		${STYLE_DIR}/style_step_5.yml \
+		${STYLE_DIR}/style_step_7.yml \
+		${NEW_PAGE_SRC_FILE} \
+		${DOCUMENT_SRC_FILE}
+
+## step_9: Use own template with changelog
+step_9:
+	${PANDOC} \
+		--resource-path .:${ASSETS_DIR}/ \
+		--filter pandoc-crossref \
+		--citeproc \
+		--metadata-file ${CHANGELOG_SRC_FILE} \
+		--template ${TEMPLATE_FILE} \
 		-o ${DOCUMENT_OUT_FILE} \
 		${STYLE_DIR}/style_step_4.yml \
 		${STYLE_DIR}/style_step_5.yml \
