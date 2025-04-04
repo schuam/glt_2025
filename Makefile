@@ -60,24 +60,24 @@ help: Makefile
 	@echo ""
 
 ## pandoc_latex_template: Generate the pandoc latex template
-pandoc_latex_template:
+pandoc_latex_template: | ${OUTPUT_DIR}
 	${PANDOC} -D latex > ${OUTPUT_DIR}/pandoc_latex_template.pandoc
 
 ## step_1: Most basic pandoc command.
-step_1:
+step_1: | ${OUTPUT_DIR}
 	${PANDOC} \
 		-o ${DOCUMENT_OUT_FILE} \
 		${DOCUMENT_SRC_FILE}
 
 ## step_2: Add images
-step_2:
+step_2: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		-o ${DOCUMENT_OUT_FILE} \
 		${DOCUMENT_SRC_FILE}
 
 ## step_3: Number sections
-step_3:
+step_3: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--number-sections \
@@ -85,7 +85,7 @@ step_3:
 		${DOCUMENT_SRC_FILE}
 
 ## step_4: Add first style file
-step_4:
+step_4: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		-o ${DOCUMENT_OUT_FILE} \
@@ -93,7 +93,7 @@ step_4:
 		${DOCUMENT_SRC_FILE}
 
 ## step_5: Add bibliography
-step_5:
+step_5: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--citeproc \
@@ -103,7 +103,7 @@ step_5:
 		${DOCUMENT_SRC_FILE}
 
 ## step_6: Add pandoc-crossref filter
-step_6:
+step_6: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--filter pandoc-crossref \
@@ -114,7 +114,7 @@ step_6:
 		${DOCUMENT_SRC_FILE}
 
 ## step_7: Add header and footer
-step_7:
+step_7: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--filter pandoc-crossref \
@@ -126,7 +126,7 @@ step_7:
 		${DOCUMENT_SRC_FILE}
 
 ## step_8: Add page break before first section
-step_8:
+step_8: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--filter pandoc-crossref \
@@ -139,7 +139,7 @@ step_8:
 		${DOCUMENT_SRC_FILE}
 
 ## step_9: Use own template with changelog
-step_9:
+step_9: | ${OUTPUT_DIR}
 	${PANDOC} \
 		--resource-path .:${ASSETS_DIR}/ \
 		--filter pandoc-crossref \
@@ -156,10 +156,13 @@ step_9:
 ## slides: Generate the slides for the presentation
 slides: ${PRESENTATION_OUT_FILE}
 
-${PRESENTATION_OUT_FILE}: ${PRESENTATION_STYLE_FILE} ${PRESENTATION_SRC_FILE}
+${PRESENTATION_OUT_FILE}: ${PRESENTATION_STYLE_FILE} ${PRESENTATION_SRC_FILE} | ${OUTPUT_DIR}
 	$(PANDOC) \
 		-t beamer \
 		-o ${PRESENTATION_OUT_FILE} \
 		--metadata-file ${PRESENTATION_STYLE_FILE} \
 		${PRESENTATION_SRC_FILE}
+
+${OUTPUT_DIR}:
+	mkdir ${OUTPUT_DIR}
 
