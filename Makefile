@@ -31,7 +31,7 @@ PRESENTATION_OUT_FILE = ${OUTPUT_DIR}/${PRESENTATION_OUT_FILE_NAME}
 PRESENTATION_STYLE_FILE = ${STYLE_DIR}/${PRESENTATION_STYLE_FILE_NAME}
 TEMPLATE_FILE = ${TEMPLATE_DIR}/${TEMPLATE_FILE_NAME}
 
-PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.0
+PANDOC = podman run --rm -v .:/data schuam/dac:v1.1.1
 
 
 # -----------------------------------------------------------------------------
