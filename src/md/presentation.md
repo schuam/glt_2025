@@ -102,7 +102,7 @@ Gibt es Fragen?
 
 ::: columns
 :::: {.column width="30%"}
-Mein DaC-Seite:
+Meine DaC-Seite:
 
 Vortrag GLT 2025:
 
